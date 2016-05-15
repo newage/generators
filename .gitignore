@@ -1,0 +1,8 @@
+build
+composer.*
+!composer.json
+docs
+vendor
+bin
+.idea
+.phpstorm.meta.php
