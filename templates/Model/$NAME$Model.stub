@@ -1,0 +1,18 @@
+<?php
+
+namespace $NAMESPACE$\Model;
+
+use $NAMESPACE$\Model\$NAME$Table;
+
+class $NAME$Model
+{
+    /**
+     * @var $NAME$Table
+     */
+    private $table;
+
+    public function __construct($NAME$Table $table)
+    {
+        $this->table = $table;
+    }
+}

@@ -1,7 +1,7 @@
 {
     "name": "newage/generators",
     "type": "library",
-    "description": "Code generators for zend framework 2 on console.",
+    "description": "Code generators for Zend Framework 2 in console.",
     "keywords": [
         "newage",
         "generators"
@@ -20,7 +20,8 @@
         "bin-dir": "bin/"
     },
     "require": {
-        "php" : "~5.5|~7.0"
+        "php" : "~5.5|~7.0",
+        "zendframework/zendframework": ">=2.3.0 | >=2.4.0"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*",

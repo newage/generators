@@ -1,0 +1,18 @@
+<?php
+
+namespace $NAMESPACE$\Service;
+
+use $NAMESPACE$\Model\$NAME$Model;
+
+class $NAME$Service
+{
+    /**
+     * @var $NAME$Model
+     */
+    private $model;
+
+    public function __construct($NAME$Model $model)
+    {
+        $this->model = $model;
+    }
+}

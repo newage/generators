@@ -1,0 +1,19 @@
+<?php
+
+namespace $NAMESPACE$\Factory;
+
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
+
+class $NAME$TableFactory implements FactoryInterface
+{
+    /**
+     * Create service
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return $NAME$Table
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+
+    }
+}

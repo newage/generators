@@ -1,0 +1,8 @@
+<?php
+
+namespace $NAMESPACE$\Controller;
+
+class $NAME$Controller
+{
+
+}
