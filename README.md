@@ -22,17 +22,35 @@ $ composer require newage/generators
 Add to config:
 ``` php
 'generators' => [
+    'path' => '/path/to/templates/',
     'templates' => [
-        'templateName' => '/templates/Folder/$NAME$Controller.stub',
-        ...
+        'controller' => 'Folder/$NAME$Controller.stub',
+        'service' => [
+            'Service/$NAME$Service.stub',
+            'Service/$NAME$ServiceInterface.stub',
+        ],
+        'module => [
+            'service',
+            'controller',
+        ]
     ],
 ]
 ```
 Create template file with template variables `$VARAIBLE_NAME$`.
+``` php
+<?php
+
+namespace $NAMESPACE$\Controller;
+
+class $NAME$Controller
+{
+    private $&NAME&; //lowerCase name
+}
+```
 
 Use console command
 ``` bash
-zf generate template <templateName> <destination> <variables>
+zf generate template <templateName> <destination> --namespace= --name=
 ```
 
 ## Change log
