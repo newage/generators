@@ -38,10 +38,11 @@ class Module implements
     {
         $docs = [
             'Code generate:',
-            'generate template <template> <destination> <variables>' => 'Generate code from a template',
+            'generate template <template> <destination> --namespace= --name=' => 'Generate code from a template',
             ['<template>', 'A template name from a config'],
             ['<destination>', 'A destination path for a generated code'],
-            ['<variables>', 'Variables for template. name=Class:namespace=My'],
+            ['--namespace', 'Namespace'],
+            ['--name', 'Class name'],
         ];
         return $docs;
     }
