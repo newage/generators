@@ -7,7 +7,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ## [Unreleased] - YYYY-MM-DD
 
 ### Added
-- Base structure for generators
+- Nothing
 
 ### Deprecated
 - Nothing
@@ -20,3 +20,18 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Security
 - Nothing
+
+## [0.1.0] - 2016-05-16
+
+### Added
+- [#5] Successful messages in console
+- [#6] Lower case variables &VARIABLE&
+
+### Fixed
+- [#4] Template structure in config
+
+## [0.0.1] - 2016-05-15
+
+### Added
+- Base structure for generators
+- Create simple generator

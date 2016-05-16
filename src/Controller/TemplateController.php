@@ -6,16 +6,14 @@ use Zend\Console\ColorInterface as Color;
 
 class TemplateController extends AbstractActionController
 {
-    const PARAMETER_DELIMITER = ':';
-    const VALUE_DELIMITER = '=';
-
     public function generateAction()
     {
         $request = $this->getRequest();
 
         $templateName = $request->getParam('template');
         $destination = getcwd() . $request->getParam('destination');
-        $variables = $this->deserializeVariables($request->getParam('variables'));
+        $variables['NAMESPACE'] = ucfirst($request->getParam('namespace'));
+        $variables['NAME'] = ucfirst($request->getParam('name'));
 
         $config = $this->getServiceLocator()->get('config');
         $console = $this->getServiceLocator()->get('console');
@@ -29,26 +27,28 @@ class TemplateController extends AbstractActionController
             return;
         }
 
-        $templateFromConfig = $config['generators']['templates'][$templateName];
-        if (is_array($templateFromConfig)) {
-            foreach ($templateFromConfig as $oneTemplate) {
-                $this->templateApply($oneTemplate, $console, $destination, $variables);
-            }
-        } else {
-            $this->templateApply($templateFromConfig, $console, $destination, $variables);
-        }
+        $templates = $config['generators']['templates'];
+        $this->getTemplatePath(
+            $templateName,
+            $templates,
+            $console,
+            $destination,
+            $variables
+        );
     }
 
-    protected function deserializeVariables($string)
+    protected function getTemplatePath($templateName, $templates, $console, $destination, $variables)
     {
-        $values = [];
-        $parameters = explode(self::PARAMETER_DELIMITER, $string);
-        foreach ($parameters as $parameter) {
-            $parts = explode(self::VALUE_DELIMITER, $parameter);
-            $values[strtoupper($parts[0])] = $parts[1];
+        if (array_key_exists($templateName, $templates)) {
+            $templateName = $templates[$templateName];
         }
-
-        return $values;
+        if (is_array($templateName)) {
+            foreach($templateName as $oneTemplate) {
+                $this->getTemplatePath($oneTemplate, $templates, $console, $destination, $variables);
+            }
+        } else {
+            $this->templateApply($templateName, $console, $destination, $variables);
+        }
     }
 
     /**
@@ -59,16 +59,20 @@ class TemplateController extends AbstractActionController
      */
     protected function templateApply($templateFromConfig, $console, $destination, $variables)
     {
-        $templatePath = getcwd() . $templateFromConfig;
+        $config = $this->getServiceLocator()->get('config');
+
+        $templatePath = getcwd() . $config['generators']['path'] . $templateFromConfig;
         if (!file_exists($templatePath)) {
             $console->writeLine('Template file not exists: ' . $templatePath, color::RED);
             return;
         }
 
         $template = file_get_contents($templatePath);
-        $destination .= substr($templateFromConfig, 10, -4) . 'php';
+        $destination .= '/' . substr($templateFromConfig, 0, -4) . 'php';
         foreach ($variables as $variableName => $variableValue) {
             $template = str_replace('$' . $variableName . '$', $variableValue, $template);
+            //lower case variable
+            $template = str_replace('&' . $variableName . '&', lcfirst($variableValue), $template);
             $destination = str_replace('$' . $variableName . '$', $variableValue, $destination);
         }
 
@@ -78,5 +82,6 @@ class TemplateController extends AbstractActionController
         }
 
         file_put_contents($destination, $template);
+        $console->writeLine('The class generated: ' . $destination, color::GREEN);
     }
 }

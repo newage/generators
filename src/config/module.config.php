@@ -11,7 +11,7 @@ return [
             'routes' => [
                 'generate-template' => [
                     'options' => [
-                        'route' => 'generate template <template> <destination> <variables>',
+                        'route' => 'generate template <template> <destination> --namespace= --name=',
                         'defaults' => [
                             'controller' => 'Template',
                             'action' => 'generate',
@@ -22,17 +22,21 @@ return [
         ]
     ],
     'generators' => [
+        'path' => '/templates/',
         'templates' => [
-            'controller' => '/templates/Controller/$NAME$Controller.stub',
-            'model' => '/templates/Model/$NAME$Model.stub',
-            'table' => '/templates/Model/$NAME$Table.stub',
-            'service' => '/templates/Service/$NAME$Service.stub',
-            'factory-table' => '/templates/Factory/$NAME$TableFactory.stub',
+            'controller' => 'Controller/$NAME$Controller.stub',
+            'model' => 'Model/$NAME$Model.stub',
+            'table' => 'Model/$NAME$Table.stub',
+            'service' => [
+                'Service/$NAME$Service.stub',
+                'Service/$NAME$ServiceInterface.stub',
+            ],
+            'factory-table' => 'Factory/$NAME$TableFactory.stub',
             'module' => [
-                '/templates/Model/$NAME$Model.stub',
-                '/templates/Model/$NAME$Table.stub',
-                '/templates/Service/$NAME$Service.stub',
-                '/templates/Factory/$NAME$TableFactory.stub',
+                'model',
+                'table',
+                'service',
+                'factory-table',
             ]
         ]
     ]
