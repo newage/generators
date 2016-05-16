@@ -6,9 +6,6 @@ use Zend\Console\ColorInterface as Color;
 
 class TemplateController extends AbstractActionController
 {
-    const PARAMETER_DELIMITER = ':';
-    const VALUE_DELIMITER = '=';
-
     public function generateAction()
     {
         $request = $this->getRequest();
