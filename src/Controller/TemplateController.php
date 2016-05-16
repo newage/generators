@@ -74,6 +74,8 @@ class TemplateController extends AbstractActionController
         $destination .= '/' . substr($templateFromConfig, 0, -4) . 'php';
         foreach ($variables as $variableName => $variableValue) {
             $template = str_replace('$' . $variableName . '$', $variableValue, $template);
+            //lower case variable
+            $template = str_replace('&' . $variableName . '&', lcfirst($variableValue), $template);
             $destination = str_replace('$' . $variableName . '$', $variableValue, $destination);
         }
 
