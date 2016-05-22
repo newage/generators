@@ -3,6 +3,7 @@ namespace Newage\Generators\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Console\ColorInterface as Color;
+use Zend\Console\Prompt;
 
 class TemplateController extends AbstractActionController
 {
@@ -81,7 +82,14 @@ class TemplateController extends AbstractActionController
             mkdir($destinationDir, 0777, true);
         }
 
-        file_put_contents($destination, $template);
-        $console->writeLine('The class generated: ' . $destination, color::GREEN);
+        $rewrite = 'y';
+        if (file_exists($destination)) {
+            $rewrite = Prompt\Confirm::prompt('File is exists. Are you want to rewrite file? [y/n]', 'y', 'n');
+        }
+
+        if ($rewrite == 'y') {
+            file_put_contents($destination, $template);
+            $console->writeLine('The class generated: ' . $destination, color::GREEN);
+        }
     }
 }
