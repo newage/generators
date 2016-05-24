@@ -16,12 +16,9 @@
             "role": "Developer"
         }
     ],
-    "config": {
-        "bin-dir": "bin/"
-    },
     "require": {
         "php" : "~5.5|~7.0",
-        "zendframework/zendframework": ">=2.3.0"
+        "zendframework/zendframework": ">=2.3.0 <2.5"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*",
@@ -39,8 +36,8 @@
         }
     },
     "scripts": {
-        "test": "php bin/phpunit -c phpunit.xml.dist",
-        "cs": "php bin/phpcs src --standard=PSR2 --colors",
-        "cs-fix": "php bin/phpcbf src --standard=PSR2 --colors"
+        "test": "php vendor/bin/phpunit -c phpunit.xml.dist",
+        "cs": "php vendor/bin/phpcs src --standard=PSR2 --colors",
+        "cs-fix": "php vendor/bin/phpcbf src --standard=PSR2 --colors"
     }
 }
